@@ -39,12 +39,9 @@ export function Home() {
         );
         const characteristics = await service.getCharacteristics();
         await characteristics[0].startNotifications();
-        characteristics[0].addEventListener(
-          "characteristicvaluechanged",
-          (e: any) => {
-            pushPowerDatapoint(e.target!.value.getInt8(2));
-          }
-        );
+        characteristics[0].addEventListener('characteristicvaluechanged', (e: any) => {
+          pushPowerDatapoint(e.target!.value.getUint8(2))
+        })
       })
       .catch((error: Error) => {
         setPairedDevice(false);
