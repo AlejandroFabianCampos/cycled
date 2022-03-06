@@ -1,7 +1,16 @@
 import { BarDatum } from "@nivo/bar";
-import React, { useState } from "react";
+import { useState } from "react";
 import { PowerBar } from "./components/PowerBar.tsx/PowerBar";
-import { Background, Button, HomeTitle } from "../Home.styles";
+import {
+  Background,
+  Button,
+  ButtonContainer,
+  HomeTitle,
+  PairedDevice,
+  Power,
+  Text,
+  TextContainer,
+} from "../Home.styles";
 
 export interface PowerDatapoint extends BarDatum {
   time: number;
@@ -51,13 +60,22 @@ export function Home() {
 
   return (
     <Background>
-      <HomeTitle>Home</HomeTitle>
-      <Button onClick={pairDevice}>Pair bluetooth power meter</Button>
-      <br />
-      <span>Paired device: {pairedDevice ? "true" : "false"}</span>
-      <br />
-      <span>Current Power: {currentPower}</span>
-      <br />
+      <HomeTitle>Cycled</HomeTitle>
+      <ButtonContainer>
+        <Button onClick={pairDevice}>Pair bluetooth power meter</Button>
+      </ButtonContainer>
+      <TextContainer>
+        <PairedDevice>
+          Paired device:
+          <p className={pairedDevice ? "green" : "red"}>
+            {pairedDevice ? "true" : "false"}
+          </p>
+        </PairedDevice>
+        <Text>
+          Current Power:
+          <Power>{currentPower}</Power>
+        </Text>
+      </TextContainer>
       <PowerBar data={historicalPower} />
     </Background>
   );
